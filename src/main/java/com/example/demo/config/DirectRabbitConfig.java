@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 文件描述
+ * direct exchange(直连型交换机)
  *
  * @author sujia
  * @date 2020年12月10日 16:55
