@@ -20,6 +20,7 @@ public class TopicRabbitConfig {
     //绑定键
     public final static String man = "topic.man";
     public final static String woman = "topic.woman";
+    public final static String saveUser = "topic.saveUser";
 
     @Bean
     public Queue firstQueue() {
@@ -29,6 +30,11 @@ public class TopicRabbitConfig {
     @Bean
     public Queue secondQueue() {
         return new Queue(TopicRabbitConfig.woman);
+    }
+
+    @Bean
+    public Queue saveUserMessage(){
+        return new Queue(TopicRabbitConfig.saveUser);
     }
 
     @Bean
@@ -49,6 +55,13 @@ public class TopicRabbitConfig {
     @Bean
     Binding bindingExchangeMessage2() {
         return BindingBuilder.bind(secondQueue()).to(exchange()).with("topic.#");
+    }
+
+    //saveUserMessage和topicExchange绑定,而且绑定的键值为topic.saveUser
+    //这样只要是消息携带的路由键是topic.man,才会分发到该队列
+    @Bean
+    Binding saveUserExchangeMessage() {
+        return BindingBuilder.bind(saveUserMessage()).to(exchange()).with(saveUser);
     }
 
 }
